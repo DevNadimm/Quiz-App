@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "818345837409",
+    "project_id": "quiz-app-6287a",
+    "storage_bucket": "quiz-app-6287a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818345837409:android:b4089c4accc4d5b3f37b20",
+        "android_client_info": {
+          "package_name": "com.nadim.quizapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAKMwjz27zwOJa9HoRQC18EmH_kDr_QP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
