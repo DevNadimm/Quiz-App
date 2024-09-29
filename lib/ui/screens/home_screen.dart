@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/model/data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -64,7 +65,9 @@ class HomeScreen extends StatelessWidget {
             'Top Quiz Categories',
             style: Theme.of(context).textTheme.headlineLarge,
           ),
-          const SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           GridView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
@@ -79,8 +82,25 @@ class HomeScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.blue.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      data[index]['imagePath'],
+                      scale: 7,
+                    ),
+                    const SizedBox(
+                      height: 05,
+                    ),
+                    Text(
+                      data[index]['title'],
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ],
                 ),
               );
             },
