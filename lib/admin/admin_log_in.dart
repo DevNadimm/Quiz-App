@@ -100,7 +100,7 @@ class _AdminLogInState extends State<AdminLogIn> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_key.currentState!.validate()) {
-                              adminLogin(); // Call adminLogin on button press
+                              adminLogin();
                             }
                           },
                           style: ElevatedButton.styleFrom(
