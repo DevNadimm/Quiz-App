@@ -9,14 +9,9 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           _headerSection(context),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                _quizCategories(context),
-                Container(height: 200, color: Colors.green,),
-              ],
-            ),
-          )
+          Expanded(
+            child: _quizCategories(context),
+          ),
         ],
       ),
     );
@@ -63,27 +58,29 @@ class HomeScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Top Quiz Categories',
             style: Theme.of(context).textTheme.headlineLarge,
           ),
+          const SizedBox(height: 16,),
           GridView.builder(
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 16,
               crossAxisSpacing: 16,
+              childAspectRatio: 1.2,
             ),
             itemCount: 6,
             itemBuilder: (context, index) {
               return Container(
                 decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(20)
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(20),
                 ),
               );
             },
