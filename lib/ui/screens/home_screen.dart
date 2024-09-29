@@ -9,6 +9,14 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           _headerSection(context),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                _quizCategories(context),
+                Container(height: 200, color: Colors.green,),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -47,6 +55,40 @@ class HomeScreen extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _quizCategories(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Top Quiz Categories',
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+            ),
+            itemCount: 6,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(20)
+                ),
+              );
+            },
+          )
+        ],
       ),
     );
   }
