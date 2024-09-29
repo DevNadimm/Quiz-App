@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
         child: Row(
           children: [
             const CircleAvatar(
-              radius: 30,
+              radius: 25,
               backgroundImage: AssetImage('assets/images/profile.jpg'),
             ),
             const SizedBox(
@@ -35,10 +35,15 @@ class HomeScreen extends StatelessWidget {
             ),
             Text(
               'Nadim Chowdhury',
-              style: Theme.of(context)
-                  .textTheme
-                  .displaySmall!
-                  .copyWith(color: Colors.white,),
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.notifications,
+              color: Colors.white,
+              size: 25,
             )
           ],
         ),
