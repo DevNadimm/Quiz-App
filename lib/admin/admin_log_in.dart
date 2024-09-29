@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:quiz_app/ui/screens/home_screen.dart';
+import 'package:quiz_app/admin/add_quiz.dart';
 import 'package:quiz_app/utils/toast.dart';
 
 class AdminLogIn extends StatefulWidget {
@@ -71,7 +71,8 @@ class _AdminLogInState extends State<AdminLogIn> {
                       TextFormField(
                         controller: passwordController,
                         style: const TextStyle(fontWeight: FontWeight.w600),
-                        obscureText: true, // Hide password input
+                        obscureText: true,
+                        // Hide password input
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Please enter a strong password";
@@ -137,37 +138,29 @@ class _AdminLogInState extends State<AdminLogIn> {
   }
 
   void adminLogin() {
-    // Get the 'Admin' collection from Firestore and look for the username (id)
     FirebaseFirestore.instance
         .collection('Admin')
         .where('username', isEqualTo: usernameController.text.trim())
         .get()
         .then((snapshot) {
-
-      // Step 1: Check if the username exists
       if (snapshot.docs.isEmpty) {
-        // No document with the given username (id), show error for incorrect username
         ToastMessage.errorToast('Incorrect username');
       } else {
-        // Username exists, now check the password
         var adminData = snapshot.docs.first.data();
 
-        // Step 2: Check if the password matches
         if (adminData['password'] != passwordController.text.trim()) {
-          // Password is incorrect, show error
           ToastMessage.errorToast('Incorrect password');
         } else {
-          // Both username and password are correct, navigate to HomeScreen
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
+              builder: (context) => const AddQuiz(),
             ),
           );
+          ToastMessage.successToast('Admin login successful!');
         }
       }
     }).catchError((error) {
-      // Step 3: If there's any problem (like network/database error), show error
       ToastMessage.errorToast('Error connecting to database: $error');
     });
   }
