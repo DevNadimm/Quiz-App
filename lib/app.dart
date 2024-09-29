@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: _textTheme,
         inputDecorationTheme: _inputDecoration,
+        elevatedButtonTheme: _elevatedButtonThemeData,
       ),
       home: const AdminLogIn(),
     );
@@ -97,7 +98,7 @@ const TextTheme _textTheme = TextTheme(
 
 final _outlineInputBorder = OutlineInputBorder(
   borderSide: BorderSide.none,
-  borderRadius: BorderRadius.circular(12),
+  borderRadius: BorderRadius.circular(10),
 );
 
 final _inputDecoration = InputDecorationTheme(
@@ -111,4 +112,20 @@ final _inputDecoration = InputDecorationTheme(
     fontWeight: FontWeight.w500,
     fontSize: 16,
   ),
+);
+
+
+final ElevatedButtonThemeData _elevatedButtonThemeData = ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+        ),
+      textStyle: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
+      ),
+    )
 );

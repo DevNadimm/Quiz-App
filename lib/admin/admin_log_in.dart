@@ -91,13 +91,6 @@ class _AdminLogInState extends State<AdminLogIn> {
                               adminLogin();
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
                           child: const Padding(
                             padding: EdgeInsets.all(15),
                             child: Text('Log In'),
