@@ -5,9 +5,37 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Home"),
+    return Scaffold(
+      body: Column(
+        children: [
+          _headerSection(),
+        ],
+      ),
+    );
+  }
+
+  Widget _headerSection (){
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(20),
+        ),
+      ),
+      child: const SafeArea(
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage('assets/images/profile.jpg'),
+            ),
+            SizedBox(
+              width: 07,
+            ),
+            Text('Nadim Chowdhury')
+          ],
+        ),
       ),
     );
   }
