@@ -11,7 +11,23 @@ class HomeScreen extends StatelessWidget {
         children: [
           _headerSection(context),
           Expanded(
-            child: _quizCategories(context),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _quizCategories(context),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  _randomContainer(context),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -57,7 +73,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget _quizCategories(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -80,32 +96,66 @@ class HomeScreen extends StatelessWidget {
             ),
             itemCount: 6,
             itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      data[index]['imagePath'],
-                      scale: 7,
-                    ),
-                    const SizedBox(
-                      height: 05,
-                    ),
-                    Text(
-                      data[index]['title'],
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ],
+              return GestureDetector(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.blue.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        data[index]['imagePath'],
+                        scale: 7,
+                      ),
+                      const SizedBox(
+                        height: 05,
+                      ),
+                      Text(
+                        data[index]['title'],
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
           )
         ],
+      ),
+    );
+  }
+
+  Widget _randomContainer(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        height: 140,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.blue.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/catImages/random.png',
+              scale: 7,
+            ),
+            const SizedBox(
+              height: 05,
+            ),
+            Text(
+              'Random',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+          ],
+        ),
       ),
     );
   }
