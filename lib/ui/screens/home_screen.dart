@@ -8,32 +8,38 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          _headerSection(),
+          _headerSection(context),
         ],
       ),
     );
   }
 
-  Widget _headerSection (){
+  Widget _headerSection(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
-        color: Colors.grey,
+        color: Colors.blue,
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(20),
         ),
       ),
-      child: const SafeArea(
+      child: SafeArea(
         child: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 30,
               backgroundImage: AssetImage('assets/images/profile.jpg'),
             ),
-            SizedBox(
-              width: 07,
+            const SizedBox(
+              width: 10,
             ),
-            Text('Nadim Chowdhury')
+            Text(
+              'Nadim Chowdhury',
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall!
+                  .copyWith(color: Colors.white,),
+            )
           ],
         ),
       ),
