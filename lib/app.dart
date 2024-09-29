@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/admin/admin_log_in.dart';
 import 'package:quiz_app/ui/screens/home_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: _textTheme,
       ),
-      home: const HomeScreen(),
+      home: const AdminLogIn(),
     );
   }
 }

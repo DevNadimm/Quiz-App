@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:818345837409:android:b4089c4accc4d5b3f37b20",
         "android_client_info": {
-          "package_name": "com.nadim.quizapp"
+          "package_name": "com.example.quiz_app"
         }
       },
       "oauth_client": [],
