@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/admin/admin_log_in.dart';
-import 'package:quiz_app/ui/screens/home_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,15 +10,15 @@ class MyApp extends StatelessWidget {
       title: 'Quiz-App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
         textTheme: _textTheme,
+        inputDecorationTheme: _inputDecoration,
       ),
       home: const AdminLogIn(),
     );
   }
 }
-
 
 const TextTheme _textTheme = TextTheme(
   displayLarge: TextStyle(
@@ -93,5 +92,23 @@ const TextTheme _textTheme = TextTheme(
     color: Colors.black,
     fontSize: 10,
     fontWeight: FontWeight.w400,
+  ),
+);
+
+final _outlineInputBorder = OutlineInputBorder(
+  borderSide: BorderSide.none,
+  borderRadius: BorderRadius.circular(12),
+);
+
+final _inputDecoration = InputDecorationTheme(
+  fillColor: Colors.blue.withOpacity(0.2),
+  filled: true,
+  border: _outlineInputBorder,
+  focusedBorder: _outlineInputBorder,
+  errorBorder: _outlineInputBorder,
+  hintStyle: const TextStyle(
+    color: Colors.black54,
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
   ),
 );

@@ -54,15 +54,9 @@ class _AdminLogInState extends State<AdminLogIn> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
-                          fillColor: Colors.blue.withOpacity(0.1),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                        decoration: const InputDecoration(
                           hintText: "Username",
-                          prefixIcon: const Icon(Icons.email_outlined),
+                          prefixIcon: Icon(Icons.email_outlined),
                         ),
                       ),
                       const SizedBox(
@@ -81,15 +75,9 @@ class _AdminLogInState extends State<AdminLogIn> {
                           }
                           return null;
                         },
-                        decoration: InputDecoration(
-                          fillColor: Colors.blue.withOpacity(0.1),
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
+                        decoration: const InputDecoration(
                           hintText: "Password",
-                          prefixIcon: const Icon(Icons.lock_outline_rounded),
+                          prefixIcon: Icon(Icons.lock_outline_rounded),
                         ),
                       ),
                       const SizedBox(
