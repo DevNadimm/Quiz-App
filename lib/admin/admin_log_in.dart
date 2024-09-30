@@ -66,7 +66,6 @@ class _AdminLogInState extends State<AdminLogIn> {
                         controller: passwordController,
                         style: const TextStyle(fontWeight: FontWeight.w600),
                         obscureText: true,
-                        // Hide password input
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Please enter a strong password";

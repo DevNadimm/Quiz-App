@@ -1,5 +1,10 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:quiz_app/services/database.dart';
+import 'package:quiz_app/utils/toast.dart';
 
 class AddQuiz extends StatefulWidget {
   const AddQuiz({super.key});
@@ -9,13 +14,75 @@ class AddQuiz extends StatefulWidget {
 }
 
 class _AddQuizState extends State<AddQuiz> {
+  final List<String> _quizCategory = [
+    'Mathematics',
+    'Sports',
+    'Technology',
+    'Science',
+    'History',
+    'Languages',
+    'Random',
+  ];
+  String? _value;
+
+  final ImagePicker _imagePicker = ImagePicker();
+  File? _selectedImage;
+
+  Future _getImage() async {
+    final image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      _selectedImage = File(image.path);
+      setState(() {});
+    }
+  }
+
+  Future<void> uploadQuiz() async {
+    if (_questionController.text.isNotEmpty &&
+        _optionOneController.text.isNotEmpty &&
+        _optionTwoController.text.isNotEmpty &&
+        _optionThreeController.text.isNotEmpty &&
+        _optionFourController.text.isNotEmpty &&
+        _ansController.text.isNotEmpty) {
+      Map<String, dynamic> addQuiz = {
+        'option1': _optionOneController.text,
+        'option2': _optionTwoController.text,
+        'option3': _optionThreeController.text,
+        'option4': _optionFourController.text,
+        'question': _questionController.text,
+        'ans': _ansController.text,
+      };
+
+      if (_selectedImage != null) {
+        try {
+          String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+          Reference firebaseStorageRef =
+              FirebaseStorage.instance.ref().child('images/$timestamp');
+
+          final task = await firebaseStorageRef.putFile(_selectedImage!);
+          final imgUrl = await task.ref.getDownloadURL();
+          addQuiz['image'] = imgUrl;
+        } catch (e) {
+          ToastMessage.errorToast('Error uploading image: $e');
+          return;
+        }
+      }
+
+      _value ??= _quizCategory.last;
+
+      await DatabaseMethod.addQuizCategory(addQuiz, _value!).then(
+        ToastMessage.successToast('Quiz uploaded successfully!'),
+      );
+    } else {
+      ToastMessage.errorToast('Please enter all required fields');
+    }
+  }
+
   final TextEditingController _questionController = TextEditingController();
   final TextEditingController _optionOneController = TextEditingController();
   final TextEditingController _optionTwoController = TextEditingController();
   final TextEditingController _optionThreeController = TextEditingController();
   final TextEditingController _optionFourController = TextEditingController();
   final TextEditingController _ansController = TextEditingController();
-  final GlobalKey<FormState> _key = GlobalKey();
 
   @override
   void dispose() {
@@ -23,6 +90,8 @@ class _AddQuizState extends State<AddQuiz> {
     _optionTwoController.dispose();
     _optionThreeController.dispose();
     _optionFourController.dispose();
+    _questionController.dispose();
+    _ansController.dispose();
     super.dispose();
   }
 
@@ -44,7 +113,9 @@ class _AddQuizState extends State<AddQuiz> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 16,),
+              const SizedBox(
+                height: 16,
+              ),
               Text(
                 'Upload an Image for the Quiz (Optional)',
                 style: Theme.of(context).textTheme.headlineSmall,
@@ -52,24 +123,42 @@ class _AddQuizState extends State<AddQuiz> {
               const SizedBox(
                 height: 10,
               ),
-              Center(
-                child: Container(
-                  height: 150,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.blue.withOpacity(0.2),
-                  ),
-                  child: const Icon(
-                    CupertinoIcons.photo,
-                    size: 30,
-                  ),
-                ),
-              ),
+              _selectedImage == null
+                  ? GestureDetector(
+                      onTap: () {
+                        _getImage();
+                      },
+                      child: Container(
+                        height: 200,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.blue.withOpacity(0.2),
+                        ),
+                        child: const Icon(
+                          CupertinoIcons.photo,
+                          size: 30,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      height: 200,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.blue.withOpacity(0.2),
+                        image: const DecorationImage(
+                          image: NetworkImage(
+                              'https://c4.wallpaperflare.com/wallpaper/691/799/699/field-football-player-wallpaper-preview.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
               const SizedBox(
                 height: 10,
               ),
               _buildTextField(),
+              _dropdownContainer(),
               const SizedBox(
                 height: 16,
               ),
@@ -77,9 +166,7 @@ class _AddQuizState extends State<AddQuiz> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_key.currentState!.validate()) {
-
-                    }
+                    uploadQuiz();
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(15),
@@ -87,7 +174,9 @@ class _AddQuizState extends State<AddQuiz> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16,),
+              const SizedBox(
+                height: 16,
+              ),
             ],
           ),
         ),
@@ -96,100 +185,161 @@ class _AddQuizState extends State<AddQuiz> {
   }
 
   Widget _buildTextField() {
-    return Form(
-      key: _key,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Quiz Question',
-            style: Theme.of(context).textTheme.headlineSmall,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Quiz Question',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        TextFormField(
+          controller: _questionController,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+          maxLines: 2,
+          decoration: const InputDecoration(
+            hintText: 'e.g., What can Flutter build?',
           ),
-          const SizedBox(
-            height: 7,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          'Answer Option 1',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        TextFormField(
+          controller: _optionOneController,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+          decoration: const InputDecoration(
+            hintText: 'e.g., Mobile Apps',
           ),
-          TextFormField(
-            controller: _questionController,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-            decoration: const InputDecoration(hintText: 'Type Your Question Here'),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Answer Option 2',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        TextFormField(
+          controller: _optionTwoController,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+          decoration: const InputDecoration(
+            hintText: 'e.g., Websites',
           ),
-          const SizedBox(
-            height: 10,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Answer Option 3',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        TextFormField(
+          controller: _optionThreeController,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+          decoration: const InputDecoration(
+            hintText: 'e.g., Desktop Apps',
           ),
-          Text(
-            'Answer Option 1',
-            style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Answer Option 4',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        TextFormField(
+          controller: _optionFourController,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+          decoration: const InputDecoration(
+            hintText: 'e.g., All of the above',
           ),
-          const SizedBox(
-            height: 7,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Correct Answer',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        TextFormField(
+          controller: _ansController,
+          style: const TextStyle(fontWeight: FontWeight.w600),
+          decoration: const InputDecoration(
+            hintText: 'e.g., All of the above',
           ),
-          TextFormField(
-            controller: _optionOneController,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-            decoration: const InputDecoration(hintText: 'Enter Answer Option 1'),
+        ),
+      ],
+    );
+  }
+
+  Widget _dropdownContainer() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Choose a Category for Your Quiz',
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 4),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.blue.withOpacity(0.2),
           ),
-          const SizedBox(
-            height: 10,
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: _value,
+              items: _quizCategory.map((item) {
+                return DropdownMenuItem(
+                  value: item,
+                  child: Text(
+                    item,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                );
+              }).toList(),
+              onChanged: (newValue) {
+                setState(() {
+                  _value = newValue!;
+                });
+              },
+              hint: Text(
+                'Pick a Category to Start',
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      color: Colors.black54,
+                    ),
+              ),
+            ),
           ),
-          Text(
-            'Answer Option 2',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(
-            height: 7,
-          ),
-          TextFormField(
-            controller: _optionTwoController,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-            decoration: const InputDecoration(hintText: 'Enter Answer Option 2'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            'Answer Option 3',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(
-            height: 7,
-          ),
-          TextFormField(
-            controller: _optionThreeController,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-            decoration: const InputDecoration(hintText: 'Enter Answer Option 3'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            'Answer Option 4',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(
-            height: 7,
-          ),
-          TextFormField(
-            controller: _optionFourController,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-            decoration: const InputDecoration(hintText: 'Enter Answer Option 4'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Text(
-            'Correct Answer',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(
-            height: 7,
-          ),
-          TextFormField(
-            controller: _ansController,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-            decoration: const InputDecoration(hintText: 'Specify the Correct Answer'),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

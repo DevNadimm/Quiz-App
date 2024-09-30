@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/admin/admin_log_in.dart';
+import 'package:quiz_app/admin/add_quiz.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: _inputDecoration,
         elevatedButtonTheme: _elevatedButtonThemeData,
       ),
-      home: const AdminLogIn(),
+      home: const AddQuiz(),
     );
   }
 }
