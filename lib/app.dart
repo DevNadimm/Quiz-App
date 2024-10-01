@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: _inputDecoration,
         elevatedButtonTheme: _elevatedButtonThemeData,
       ),
-      home: UserLogInScreen(),
+      home: const UserLogInScreen(),
     );
   }
 }

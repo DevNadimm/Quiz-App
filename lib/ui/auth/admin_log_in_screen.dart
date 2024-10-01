@@ -23,86 +23,79 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Form(
-                  key: _key,
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        "assets/images/login.jpg",
-                        scale: 3.5,
-                      ),
-                      Text(
-                        'Let\'s start with Admin!',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(color: Colors.blueAccent),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      TextFormField(
-                        controller: usernameController,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter your username";
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Username",
-                          prefixIcon: Icon(Icons.email_outlined),
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Form(
+                    key: _key,
+                    child: Column(
+                      children: [
+                        Text(
+                          'Let\'s start with Admin!',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium!
+                              .copyWith(color: Colors.blue),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: passwordController,
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please enter a strong password";
-                          } else if (value.length < 6) {
-                            return "Password must be at least 6 characters long";
-                          }
-                          return null;
-                        },
-                        decoration: const InputDecoration(
-                          hintText: "Password",
-                          prefixIcon: Icon(Icons.lock_outline_rounded),
+                        const SizedBox(
+                          height: 15,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_key.currentState!.validate()) {
-                              adminLogin();
+                        TextFormField(
+                          controller: usernameController,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your username";
                             }
+                            return null;
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Text('Log In'),
+                          decoration: const InputDecoration(
+                            hintText: "Username",
+                            prefixIcon: Icon(Icons.email_outlined),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFormField(
+                          controller: passwordController,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your password";
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            hintText: "Password",
+                            prefixIcon: Icon(Icons.lock_outline_rounded),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_key.currentState!.validate()) {
+                                adminLogin();
+                              }
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.all(15),
+                              child: Text('Log In'),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
