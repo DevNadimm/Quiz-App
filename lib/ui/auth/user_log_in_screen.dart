@@ -1,12 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/ui/screens/home_screen.dart';
-import 'package:quiz_app/utils/toast.dart';
 
 class UserLogInScreen extends StatelessWidget {
-  UserLogInScreen({super.key});
-
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  const UserLogInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +56,12 @@ class UserLogInScreen extends StatelessWidget {
   Widget _logInWithGoogleButton(BuildContext context) {
     return InkWell(
       onTap: () {
-        _googleAuthentication(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
       },
       child: Card(
         elevation: 2,
@@ -92,21 +93,5 @@ class UserLogInScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _googleAuthentication(BuildContext context) {
-    try {
-      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-      _auth.signInWithProvider(googleAuthProvider);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
-      );
-      ToastMessage.successToast('Login Successful!');
-    } catch (error) {
-      ToastMessage.errorToast('An error occurred: $error');
-    }
   }
 }
