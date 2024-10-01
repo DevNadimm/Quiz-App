@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/admin/admin_log_in.dart';
+import 'package:quiz_app/ui/auth/admin_log_in_screen.dart';
 import 'package:quiz_app/model/data.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -67,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AdminLogIn(),
+                    builder: (context) => const AdminLogInScreen(),
                   ),
                 );
               },

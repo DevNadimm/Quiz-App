@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:quiz_app/admin/add_quiz.dart';
+import 'package:quiz_app/ui/screens/add_quiz_screen.dart';
 import 'package:quiz_app/utils/toast.dart';
 
-class AdminLogIn extends StatefulWidget {
-  const AdminLogIn({super.key});
+class AdminLogInScreen extends StatefulWidget {
+  const AdminLogInScreen({super.key});
 
   @override
-  State<AdminLogIn> createState() => _AdminLogInState();
+  State<AdminLogInScreen> createState() => _AdminLogInScreenState();
 }
 
-class _AdminLogInState extends State<AdminLogIn> {
+class _AdminLogInScreenState extends State<AdminLogInScreen> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey();
@@ -134,7 +134,7 @@ class _AdminLogInState extends State<AdminLogIn> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddQuiz(),
+              builder: (context) => const AddQuizScreen(),
             ),
           );
           ToastMessage.successToast('Admin login successful!');

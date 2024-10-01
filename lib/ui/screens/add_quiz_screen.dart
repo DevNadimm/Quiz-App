@@ -6,14 +6,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:quiz_app/services/database.dart';
 import 'package:quiz_app/utils/toast.dart';
 
-class AddQuiz extends StatefulWidget {
-  const AddQuiz({super.key});
+class AddQuizScreen extends StatefulWidget {
+  const AddQuizScreen({super.key});
 
   @override
-  State<AddQuiz> createState() => _AddQuizState();
+  State<AddQuizScreen> createState() => _AddQuizScreenState();
 }
 
-class _AddQuizState extends State<AddQuiz> {
+class _AddQuizScreenState extends State<AddQuizScreen> {
   final List<String> _quizCategory = [
     'Mathematics',
     'Sports',

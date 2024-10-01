@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/ui/screens/home_screen.dart';
 import 'package:quiz_app/utils/toast.dart';
 
-class LogInScreen extends StatelessWidget {
-  LogInScreen({super.key});
+class UserLogInScreen extends StatelessWidget {
+  UserLogInScreen({super.key});
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
