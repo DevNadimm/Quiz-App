@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/admin/admin_log_in.dart';
 import 'package:quiz_app/model/data.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -60,11 +62,20 @@ class HomeScreen extends StatelessWidget {
                   ),
             ),
             const Spacer(),
-            const Icon(
-              Icons.notifications,
-              color: Colors.white,
-              size: 25,
-            )
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AdminLogIn(),
+                  ),
+                );
+              },
+              child: Image.asset(
+                'assets/images/admin.png',
+                scale: 15,
+              ),
+            ),
           ],
         ),
       ),
