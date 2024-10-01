@@ -109,7 +109,14 @@ class HomeScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  _onTapCategory(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => QuizScreen(
+                        category: data[index]['title'],
+                      ),
+                    ),
+                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -147,7 +154,14 @@ class HomeScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: GestureDetector(
         onTap: () {
-          _onTapCategory(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const QuizScreen(
+                category: 'Random',
+              ),
+            ),
+          );
         },
         child: Container(
           height: 140,
@@ -174,15 +188,6 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  void _onTapCategory(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const QuizScreen(),
       ),
     );
   }
