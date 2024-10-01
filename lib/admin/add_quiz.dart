@@ -28,55 +28,7 @@ class _AddQuizState extends State<AddQuiz> {
   final ImagePicker _imagePicker = ImagePicker();
   File? _selectedImage;
 
-  Future _getImage() async {
-    final image = await _imagePicker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      _selectedImage = File(image.path);
-      setState(() {});
-    }
-  }
-
-  Future<void> uploadQuiz() async {
-    if (_questionController.text.isNotEmpty &&
-        _optionOneController.text.isNotEmpty &&
-        _optionTwoController.text.isNotEmpty &&
-        _optionThreeController.text.isNotEmpty &&
-        _optionFourController.text.isNotEmpty &&
-        _ansController.text.isNotEmpty) {
-      Map<String, dynamic> addQuiz = {
-        'option1': _optionOneController.text,
-        'option2': _optionTwoController.text,
-        'option3': _optionThreeController.text,
-        'option4': _optionFourController.text,
-        'question': _questionController.text,
-        'ans': _ansController.text,
-      };
-
-      if (_selectedImage != null) {
-        try {
-          String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
-          Reference firebaseStorageRef =
-              FirebaseStorage.instance.ref().child('images/$timestamp');
-
-          final task = await firebaseStorageRef.putFile(_selectedImage!);
-          final imgUrl = await task.ref.getDownloadURL();
-          addQuiz['image'] = imgUrl;
-        } catch (e) {
-          ToastMessage.errorToast('Error uploading image: $e');
-          return;
-        }
-      }
-
-      _value ??= _quizCategory.last;
-
-      await DatabaseMethod.addQuizCategory(addQuiz, _value!).then(
-        ToastMessage.successToast('Quiz uploaded successfully!'),
-      );
-    } else {
-      ToastMessage.errorToast('Please enter all required fields');
-    }
-  }
-
+  // Controllers for quiz fields
   final TextEditingController _questionController = TextEditingController();
   final TextEditingController _optionOneController = TextEditingController();
   final TextEditingController _optionTwoController = TextEditingController();
@@ -84,13 +36,89 @@ class _AddQuizState extends State<AddQuiz> {
   final TextEditingController _optionFourController = TextEditingController();
   final TextEditingController _ansController = TextEditingController();
 
+  // Method to pick an image
+  Future<void> _getImage() async {
+    final image = await _imagePicker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+  }
+
+  Future<void> uploadQuiz() async {
+    if (_areFieldsFilled()) {
+      Map<String, dynamic> addQuiz = _createQuizMap();
+
+      if (_selectedImage != null) {
+        await _uploadImage(addQuiz);
+      }
+
+      _value ??= _quizCategory.last;
+
+      await DatabaseMethod.addQuizCategory(addQuiz, _value!).then((_) {
+        ToastMessage.successToast('Quiz uploaded successfully!');
+        _clearFields();
+        setState(() {});
+      });
+    } else {
+      ToastMessage.errorToast('Please enter all required fields');
+    }
+  }
+
+  bool _areFieldsFilled() {
+    return _questionController.text.isNotEmpty &&
+        _optionOneController.text.isNotEmpty &&
+        _optionTwoController.text.isNotEmpty &&
+        _optionThreeController.text.isNotEmpty &&
+        _optionFourController.text.isNotEmpty &&
+        _ansController.text.isNotEmpty;
+  }
+
+  Map<String, dynamic> _createQuizMap() {
+    return {
+      'option1': _optionOneController.text,
+      'option2': _optionTwoController.text,
+      'option3': _optionThreeController.text,
+      'option4': _optionFourController.text,
+      'question': _questionController.text,
+      'ans': _ansController.text,
+    };
+  }
+
+  Future<void> _uploadImage(Map<String, dynamic> addQuiz) async {
+    try {
+      String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference firebaseStorageRef =
+          FirebaseStorage.instance.ref().child('images/$timestamp');
+
+      final task = await firebaseStorageRef.putFile(_selectedImage!);
+      final imgUrl = await task.ref.getDownloadURL();
+      addQuiz['image'] = imgUrl;
+    } catch (e) {
+      ToastMessage.errorToast('Error uploading image: $e');
+    }
+  }
+
+  void _clearFields() {
+    _questionController.clear();
+    _optionOneController.clear();
+    _optionTwoController.clear();
+    _optionThreeController.clear();
+    _optionFourController.clear();
+    _ansController.clear();
+    setState(() {
+      _selectedImage = null;
+    });
+  }
+
   @override
   void dispose() {
+    _questionController.dispose();
     _optionOneController.dispose();
     _optionTwoController.dispose();
     _optionThreeController.dispose();
     _optionFourController.dispose();
-    _questionController.dispose();
     _ansController.dispose();
     super.dispose();
   }
@@ -147,9 +175,8 @@ class _AddQuizState extends State<AddQuiz> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Colors.blue.withOpacity(0.2),
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                              'https://c4.wallpaperflare.com/wallpaper/691/799/699/field-football-player-wallpaper-preview.jpg'),
+                        image: DecorationImage(
+                          image: FileImage(_selectedImage!),
                           fit: BoxFit.cover,
                         ),
                       ),
