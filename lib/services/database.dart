@@ -11,4 +11,8 @@ class DatabaseMethod {
       print('Error adding quiz category: $e');
     }
   }
+
+  static Future<Stream<QuerySnapshot>> getQuizByCategory(String category) async {
+    return FirebaseFirestore.instance.collection(category).snapshots();
+  }
 }

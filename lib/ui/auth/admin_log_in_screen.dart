@@ -53,7 +53,7 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
                           },
                           decoration: const InputDecoration(
                             hintText: "Username",
-                            prefixIcon: Icon(Icons.email_outlined),
+                            prefixIcon: Icon(Icons.person_outline_rounded),
                           ),
                         ),
                         const SizedBox(
