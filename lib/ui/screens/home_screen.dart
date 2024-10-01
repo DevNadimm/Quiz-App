@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/ui/auth/admin_log_in_screen.dart';
 import 'package:quiz_app/model/data.dart';
+import 'package:quiz_app/ui/screens/quiz_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -107,7 +108,9 @@ class HomeScreen extends StatelessWidget {
             itemCount: 6,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  _onTapCategory(context);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.blue.withOpacity(0.2),
@@ -142,30 +145,44 @@ class HomeScreen extends StatelessWidget {
   Widget _randomContainer(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        height: 140,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.blue.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(20),
+      child: GestureDetector(
+        onTap: () {
+          _onTapCategory(context);
+        },
+        child: Container(
+          height: 140,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.blue.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/catImages/random.png',
+                scale: 7,
+              ),
+              const SizedBox(
+                height: 05,
+              ),
+              Text(
+                'Random',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ],
+          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/catImages/random.png',
-              scale: 7,
-            ),
-            const SizedBox(
-              height: 05,
-            ),
-            Text(
-              'Random',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          ],
-        ),
+      ),
+    );
+  }
+
+  void _onTapCategory(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const QuizScreen(),
       ),
     );
   }
