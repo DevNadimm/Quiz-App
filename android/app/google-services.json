@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:818345837409:android:b4089c4accc4d5b3f37b20",
         "android_client_info": {
-          "package_name": "com.example.quiz_app"
+          "package_name": "com.nadim.quizapp"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "818345837409-jr5ib2b0pu6enko8ldhf3g833e0nngas.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.quizApp"
+                "bundle_id": "com.nadim.quizapp"
               }
             }
           ]
