@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/ui/auth/admin_log_in_screen.dart';
 import 'package:quiz_app/model/data.dart';
+import 'package:quiz_app/ui/screens/profile_screen.dart';
 import 'package:quiz_app/ui/screens/quiz_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -51,18 +52,32 @@ class HomeScreen extends StatelessWidget {
       child: SafeArea(
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 22,
-              backgroundImage: NetworkImage(user!.photoURL!),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Text(
-              (user.displayName!),
-              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    color: Colors.white,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
                   ),
+                );
+              },
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 22,
+                    backgroundImage: NetworkImage(user!.photoURL!),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    (user.displayName!),
+                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ],
+              ),
             ),
             const Spacer(),
             GestureDetector(

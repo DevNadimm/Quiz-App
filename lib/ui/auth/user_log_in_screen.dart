@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/services/auth.dart';
-import 'package:quiz_app/ui/screens/home_screen.dart';
 
 class UserLogInScreen extends StatelessWidget {
   const UserLogInScreen({super.key});
@@ -58,7 +57,6 @@ class UserLogInScreen extends StatelessWidget {
     return InkWell(
       onTap: () {
         AuthMethod.signInWithGoogle(context);
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
       },
       child: Card(
         elevation: 2,
