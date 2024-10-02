@@ -44,6 +44,7 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Card(
                 elevation: 4,
+                color: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),

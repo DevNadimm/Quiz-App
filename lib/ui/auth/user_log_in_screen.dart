@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/services/auth.dart';
+import 'package:quiz_app/ui/widgets/gradient_background.dart';
 
 class UserLogInScreen extends StatelessWidget {
   const UserLogInScreen({super.key});
@@ -7,46 +8,47 @@ class UserLogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [
-              Colors.blueAccent,
-              Colors.blue.withOpacity(0.6),
-            ],
-          ),
-        ),
+      body: GradientBackground(
         child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Welcome to\nQuiz-App',
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium!
-                    .copyWith(color: Colors.white),
-                textAlign: TextAlign.center,
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: Card(
+              elevation: 4,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
               ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22),
-                child: Text(
-                  'Welcome to Quiz-App! Challenge your knowledge with fun quizzes that test your skills. Let’s embark on this journey to become a quiz champion!',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: Colors.white),
-                  textAlign: TextAlign.center,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Welcome to\nQuiz-App',
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium!
+                          .copyWith(color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        'Test your skills with exciting quizzes that challenge your knowledge. Let’s start this adventure to become a quiz champion together!',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: Colors.black),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    _logInWithGoogleButton(context),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              _logInWithGoogleButton(context),
-            ],
+            ),
           ),
         ),
       ),
@@ -68,7 +70,7 @@ class UserLogInScreen extends StatelessWidget {
           width: double.infinity,
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.blue.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(

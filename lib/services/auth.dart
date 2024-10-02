@@ -16,11 +16,9 @@ class AuthMethod {
       final FirebaseAuth auth = FirebaseAuth.instance;
       final GoogleSignIn googleSignIn = GoogleSignIn();
 
-      // Start Google Sign-In
       final GoogleSignInAccount? googleSignInAccount =
           await googleSignIn.signIn();
 
-      // Handle user canceling the sign-in
       if (googleSignInAccount == null) {
         print('Sign-in canceled by user.');
         return;
@@ -29,18 +27,15 @@ class AuthMethod {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
 
-      // Create a new credential
       final AuthCredential authCredential = GoogleAuthProvider.credential(
         idToken: googleSignInAuthentication.idToken,
         accessToken: googleSignInAuthentication.accessToken,
       );
 
-      // Sign in the user with Firebase
       UserCredential result = await auth.signInWithCredential(authCredential);
       User? userDetails = result.user;
 
       if (userDetails != null) {
-        // Store user info in Firestore
         Map<String, dynamic> userInfoMap = {
           'email': userDetails.email,
           'name': userDetails.displayName,
@@ -56,12 +51,13 @@ class AuthMethod {
                 builder: (context) => const HomeScreen(),
               ),
             );
-          },
+            ToastMessage.successToast('Welcome! Login successful.');
+          }
         );
       }
     } catch (e) {
       print("\n\n\nError during Google sign-in: $e\n\n\n");
-      ToastMessage.errorToast('Sign-in failed. Please try again.');
+      ToastMessage.errorToast('Login failed. Please try again.');
     }
   }
 }

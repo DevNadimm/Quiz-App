@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quiz_app/ui/screens/add_quiz_screen.dart';
+import 'package:quiz_app/ui/widgets/gradient_background.dart';
 import 'package:quiz_app/utils/toast.dart';
 
 class AdminLogInScreen extends StatefulWidget {
@@ -19,82 +20,102 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Center(
-          child: SingleChildScrollView(
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Form(
-                    key: _key,
-                    child: Column(
-                      children: [
-                        Text(
-                          'Let\'s start with Admin!',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(color: Colors.blue),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        TextFormField(
-                          controller: usernameController,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter your username";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            hintText: "Username",
-                            prefixIcon: Icon(Icons.person_outline_rounded),
+      appBar: AppBar(
+        title: Text(
+          'Admin Login',
+          style: Theme.of(context).textTheme.displaySmall,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
+      body: GradientBackground(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Center(
+            child: SingleChildScrollView(
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Card(
+                      elevation: 4,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Form(
+                          key: _key,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Quiz-App',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium!
+                                    .copyWith(color: Colors.black),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: usernameController,
+                                style: const TextStyle(fontWeight: FontWeight.w600),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please enter your username";
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  hintText: "Username",
+                                  prefixIcon: Icon(Icons.person_outline_rounded),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextFormField(
+                                controller: passwordController,
+                                style: const TextStyle(fontWeight: FontWeight.w600),
+                                obscureText: true,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return "Please enter your password";
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  hintText: "Password",
+                                  prefixIcon: Icon(Icons.lock_outline_rounded),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_key.currentState!.validate()) {
+                                      adminLogin();
+                                    }
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(15),
+                                    child: Text('Log In'),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: passwordController,
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                          obscureText: true,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Please enter your password";
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            hintText: "Password",
-                            prefixIcon: Icon(Icons.lock_outline_rounded),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_key.currentState!.validate()) {
-                                adminLogin();
-                              }
-                            },
-                            child: const Padding(
-                              padding: EdgeInsets.all(15),
-                              child: Text('Log In'),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
