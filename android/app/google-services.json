@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "818345837409-jokqvuf8uka6cammglbgc14pl9vpigso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nadim.quizapp",
+            "certificate_hash": "070931552d4c71a4170133d5a050ae9e63c8dfb3"
+          }
+        },
+        {
           "client_id": "818345837409-3hocnmcodb0fgmio4i7lafqa88b3e42l.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -34,7 +42,7 @@
               "client_id": "818345837409-jr5ib2b0pu6enko8ldhf3g833e0nngas.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.nadim.quizapp"
+                "bundle_id": "com.example.quizApp"
               }
             }
           ]
