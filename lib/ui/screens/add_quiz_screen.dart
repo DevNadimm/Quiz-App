@@ -21,6 +21,7 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
     'Science',
     'History',
     'Languages',
+    'The Future',
     'Random',
   ];
   String? _value;
@@ -28,7 +29,6 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   File? _selectedImage;
 
-  // Controllers for quiz fields
   final TextEditingController _questionController = TextEditingController();
   final TextEditingController _optionOneController = TextEditingController();
   final TextEditingController _optionTwoController = TextEditingController();
@@ -36,7 +36,6 @@ class _AddQuizScreenState extends State<AddQuizScreen> {
   final TextEditingController _optionFourController = TextEditingController();
   final TextEditingController _ansController = TextEditingController();
 
-  // Method to pick an image
   Future<void> _getImage() async {
     final image = await _imagePicker.pickImage(source: ImageSource.gallery);
     if (image != null) {

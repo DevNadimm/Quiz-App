@@ -23,4 +23,12 @@ List<Map<String, dynamic>> data = [
     'title': 'Languages',
     'imagePath': 'assets/images/catImages/language.png',
   },
+  {
+    'title': 'The Future',
+    'imagePath': 'assets/images/catImages/future.png',
+  },
+  {
+    'title': 'Random',
+    'imagePath': 'assets/images/catImages/random.png',
+  },
 ];
