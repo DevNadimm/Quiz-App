@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/services/auth.dart';
 import 'package:quiz_app/ui/screens/home_screen.dart';
 
 class UserLogInScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class UserLogInScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -56,12 +57,8 @@ class UserLogInScreen extends StatelessWidget {
   Widget _logInWithGoogleButton(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
-          ),
-        );
+        AuthMethod.signInWithGoogle(context);
+        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
       },
       child: Card(
         elevation: 2,
@@ -71,7 +68,7 @@ class UserLogInScreen extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 4),
           width: double.infinity,
-          height: 60,
+          height: 50,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
