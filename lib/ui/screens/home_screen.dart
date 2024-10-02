@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/ui/auth/admin_log_in_screen.dart';
 import 'package:quiz_app/model/data.dart';
@@ -37,6 +38,8 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _headerSection(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
@@ -48,15 +51,15 @@ class HomeScreen extends StatelessWidget {
       child: SafeArea(
         child: Row(
           children: [
-            const CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage('assets/images/profile.jpg'),
+            CircleAvatar(
+              radius: 22,
+              backgroundImage: NetworkImage(user!.photoURL!),
             ),
             const SizedBox(
               width: 10,
             ),
             Text(
-              'Nadim Chowdhury',
+              (user.displayName!),
               style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     color: Colors.white,
                   ),
