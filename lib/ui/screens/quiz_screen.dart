@@ -110,7 +110,7 @@ class _QuizScreenState extends State<QuizScreen> {
           const SizedBox(height: 20),
           Text(
             'Choose the answer',
-            style: Theme.of(context).textTheme.headlineSmall,
+            style: Theme.of(context).textTheme.titleLarge,
             textAlign: TextAlign.center,
           ),
           _buildOptionsList(context, doc),
