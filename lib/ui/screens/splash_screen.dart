@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:quiz_app/services/auth.dart';
 import 'package:quiz_app/ui/auth/user_log_in_screen.dart';
 import 'package:quiz_app/ui/screens/home_screen.dart';
 import 'package:quiz_app/ui/widgets/gradient_background.dart';
-import 'profile_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,12 +23,14 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(
       const Duration(seconds: 3),
     );
-    User? user = FirebaseAuth.instance.currentUser;
+
+    User? currentUser = await AuthMethod.getCurrentUser();
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) =>
-            user != null ? const HomeScreen() : const UserLogInScreen(),
+            currentUser != null ? const HomeScreen() : const UserLogInScreen(),
       ),
     );
   }
