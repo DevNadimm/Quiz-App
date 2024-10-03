@@ -43,20 +43,19 @@ class AuthMethod {
           'id': userDetails.uid,
         };
 
-        await DatabaseMethod.addUser(userInfoMap, userDetails.uid).then(
-          (value) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
-            ToastMessage.successToast('Welcome! Login successful.');
-          }
-        );
+        await DatabaseMethod.addUser(userInfoMap, userDetails.uid)
+            .then((value) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
+          ToastMessage.successToast('Welcome! Login successful.');
+        });
       }
     } catch (e) {
-      print("\n\n\nError during Google sign-in: $e\n\n\n");
+      print("Error during Google sign-in: $e");
       ToastMessage.errorToast('Login failed. Please try again.');
     }
   }
