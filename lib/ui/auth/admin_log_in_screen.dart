@@ -19,7 +19,6 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           'Admin Login',
