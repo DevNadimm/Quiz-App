@@ -19,7 +19,7 @@ class _AdminLogInScreenState extends State<AdminLogInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
           'Admin Login',
