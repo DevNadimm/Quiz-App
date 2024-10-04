@@ -41,6 +41,7 @@ class AuthMethod {
           'name': userDetails.displayName,
           'imgUrl': userDetails.photoURL,
           'id': userDetails.uid,
+          'phoneNo': userDetails.phoneNumber,
         };
 
         await DatabaseMethod.addUser(userInfoMap, userDetails.uid)
