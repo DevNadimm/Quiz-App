@@ -5,7 +5,7 @@ A **Quiz-App** built using **Flutter** and integrated with **Firebase** for back
 ## ✨ Features
 
 - **Admin Panel**: Admin users can log in to manage quiz posts and categories.
-- **User Authentication**: Users can log in and log out using Email/Password or Google Sign-In.
+- **User Authentication**: Users can effortlessly log in and out using their Google account, providing a smooth and convenient authentication experience.
 - **Multiple Categories**: Supports quizzes across various categories.
 - **Firebase Firestore**: Stores quiz questions, categories, and user data.
 - **Responsive Design**: Optimized for both Android and iOS devices.
