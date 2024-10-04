@@ -15,11 +15,11 @@ A **Quiz-App** built using **Flutter** and integrated with **Firebase** for back
 - **Flutter**: Frontend framework for building cross-platform mobile apps.
 - **Firebase**: Used for backend services like authentication and Firestore.
 
-## Screenshots 📸
+## 📸 Screenshots
 
 | Home Screen | Quiz Screen | Create Quiz Screen                                                                 |
 | --- | --- |------------------------------------------------------------------------------------|
-| ![Home Screen](https://i.ibb.co/com/5xt81rH/Screenshot-20241004-105610.png) | ![Quiz Screen](https://i.ibb.co/com/ynkM3j3/Screenshot-20241004-105729.png) | ![Create Quiz Screen](https://i.ibb.co/com/9TGxSy1/Screenshot-20241004-105833.png) |
+| ![Home Screen](assets/images/screenshots/home_screen.png) | ![Quiz Screen](assets/images/screenshots/quiz_screen.png) | ![Create Quiz Screen](assets/images/screenshots/create_quiz_screen.png) |
 
 ## 📦 Installation
 
