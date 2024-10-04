@@ -1,6 +1,6 @@
 # Quiz-App
 
-A **Quiz-App** built using **Flutter** and integrated with **Firebase** for backend services. This app allows users to take quizzes and stores quiz data, scores, and user information in Firebase. It features an admin panel for managing quizzes and is designed with a simple and clean user interface, ensuring smooth performance and functionality.
+A **Quiz-App** developed with **Flutter** and powered by **Firebase** for backend services. This app provides users with an engaging platform to take quizzes, while securely storing quiz data and user information in Firebase. Featuring an intuitive admin panel for managing quizzes, the app is designed with a clean and user-friendly interface, ensuring smooth performance and seamless functionality.
 
 ## ✨ Features
 
