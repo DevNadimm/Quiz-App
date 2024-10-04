@@ -40,12 +40,12 @@ A **Quiz-App** built using **Flutter** and integrated with **Firebase** for back
     flutter run
     ```
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! If you have any suggestions, bug reports, or feature requests, feel free
 to open an issue or submit a pull request.
 
-## Contact
+## 📬 Contact
 
 If you have any questions or want to get in touch, you can reach me
 at [nadimchowdhury87@gmail.com](mailto:nadimchowdhury87@gmail.com).
