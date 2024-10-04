@@ -17,9 +17,9 @@ A **Quiz-App** built using **Flutter** and integrated with **Firebase** for back
 
 ## Screenshots 📸
 
-| Home Screen | Quiz Screen | Admin Panel |
-| --- | --- | --- |
-| ![Home Screen](https://i.ibb.co/com/5xt81rH/Screenshot-20241004-105610.png) | ![Quiz Screen](https://i.ibb.co/com/ynkM3j3/Screenshot-20241004-105729.png) | ![Admin Create Quiz](https://i.ibb.co/com/9TGxSy1/Screenshot-20241004-105833.png) |
+| Home Screen | Quiz Screen | Create Quiz Screen                                                                 |
+| --- | --- |------------------------------------------------------------------------------------|
+| ![Home Screen](https://i.ibb.co/com/5xt81rH/Screenshot-20241004-105610.png) | ![Quiz Screen](https://i.ibb.co/com/ynkM3j3/Screenshot-20241004-105729.png) | ![Create Quiz Screen](https://i.ibb.co/com/9TGxSy1/Screenshot-20241004-105833.png) |
 
 ## 📦 Installation
 
