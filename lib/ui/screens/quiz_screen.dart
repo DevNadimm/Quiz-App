@@ -165,14 +165,18 @@ class _QuizScreenState extends State<QuizScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.blue.withOpacity(0.2),
+          color: isAnswerHighlighted
+              ? option == ans
+                  ? Colors.green.withOpacity(0.1)
+                  : Colors.red.withOpacity(0.1)
+              : Colors.blue.withOpacity(0.2),
           border: Border.all(
             width: 2,
             color: isAnswerHighlighted
                 ? option == ans
                     ? Colors.green
                     : Colors.red
-                : Colors.white,
+                : Colors.grey.withOpacity(0.5),
           ),
         ),
         child: Text(
