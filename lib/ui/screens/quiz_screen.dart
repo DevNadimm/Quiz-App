@@ -17,6 +17,7 @@ class _QuizScreenState extends State<QuizScreen> {
   PageController pageController = PageController();
   bool isAnswerHighlighted = false;
   bool isOptionSelected = false;
+  int currentIndex = 0;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _QuizScreenState extends State<QuizScreen> {
       backgroundColor: Colors.blue,
       appBar: _buildAppBar(),
       body: _buildQuizBody(),
+      floatingActionButton: _buildFloatingActionButton(),
     );
   }
 
@@ -74,23 +76,35 @@ class _QuizScreenState extends State<QuizScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
         color: Colors.white,
       ),
-      child: StreamBuilder(
-        stream: quizStream,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      child: Column(
+        children: [
+          _buildProgressIndicator(),
+          Expanded(
+            child: StreamBuilder(
+              stream: quizStream,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-          return PageView.builder(
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: snapshot.data.docs.length,
-            itemBuilder: (context, index) {
-              final doc = snapshot.data.docs[index];
-              return _buildQuizPage(context, doc);
-            },
-          );
-        },
+                return PageView.builder(
+                  controller: pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data.docs.length,
+                  onPageChanged: ((index) {
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  }),
+                  itemBuilder: (context, index) {
+                    final doc = snapshot.data.docs[index];
+                    return _buildQuizPage(context, doc);
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -99,7 +113,6 @@ class _QuizScreenState extends State<QuizScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const SizedBox(height: 16),
           Text(
             doc['question'],
             style: Theme.of(context).textTheme.headlineMedium,
@@ -114,8 +127,6 @@ class _QuizScreenState extends State<QuizScreen> {
             textAlign: TextAlign.center,
           ),
           _buildOptionsList(context, doc),
-          const SizedBox(height: 10),
-          _buildNextButton(),
           const SizedBox(height: 16),
         ],
       ),
@@ -188,23 +199,56 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  Widget _buildNextButton() {
-    return Align(
-      alignment: Alignment.topRight,
-      child: ElevatedButton(
-        onPressed: isOptionSelected
-            ? () {
-                setState(() {
-                  isAnswerHighlighted = false;
-                  isOptionSelected = false;
-                });
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
-              }
-            : null,
-        child: const Text('Next'),
+  FloatingActionButton _buildFloatingActionButton() {
+    return FloatingActionButton.extended(
+      onPressed: isOptionSelected
+          ? () {
+              setState(() {
+                isAnswerHighlighted = false;
+                isOptionSelected = false;
+              });
+              pageController.nextPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+              );
+            }
+          : null,
+      backgroundColor: isOptionSelected ? Colors.blue : Colors.grey,
+      label: const Text(
+        ' Next ',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      child: StreamBuilder(
+        stream: quizStream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const SizedBox();
+          }
+
+          int totalQuestions = snapshot.data.docs.length;
+          double progress =
+              totalQuestions > 0 ? (currentIndex + 1) / totalQuestions : 0;
+
+          return SizedBox(
+            height: 12,
+            child: LinearProgressIndicator(
+              value: progress,
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+              backgroundColor: Colors.blue.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+          );
+        },
       ),
     );
   }
